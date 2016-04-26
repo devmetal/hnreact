@@ -1,0 +1,11 @@
+#!/bin/sh
+
+ssh -t -t app@metaladam.net <<EOF
+  cd ~/hnreact
+  git pull
+  npm cache clean
+  npm install
+  npm run build
+  forever restartall
+  exit
+EOF
