@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ssh app@metaladam.net <<EOF
+ssh -t -t app@metaladam.net <<EOF
   cd ~/hnreact
   git pull
   npm cache clean
