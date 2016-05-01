@@ -10,6 +10,8 @@ const store = configureStore(window.__INITIAL_STATE__);
 const history = browserHistory;
 const dest = document.getElementById('root');
 
+//require('../static/sass/main.scss');
+
 render((
   <Provider store={store}>
     <Router history={history} routes={routes} />
