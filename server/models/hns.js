@@ -4,8 +4,9 @@ import Rx from 'rxjs/Rx';
 
 const ref = new Firebase('https://hacker-news.firebaseio.com/v0/');
 
-const isStory = (x) => x.type === 'story';
 const hasUrl = (x) => x.url && x.url.length > 0;
+const isStory = (x) => x.type === 'story';
+const storyFilter = (x) => hasUrl(x) && isStory(x);
 
 const storeLimit = 200;
 
@@ -38,6 +39,20 @@ Rx.Observable.fromEvent(topstoriesRef, 'value')
     topstoriesList = new Immutable.List(items);
   });
 
+Rx.Observable.fromEvent(topstoriesRef, 'child_changed')
+  .map(snap => {
+    return { key: snap.key(), id: snap.val() };
+  })
+  .mergeMap(item => {
+    const promise = retreiveAsync(item.id)
+      .then(val => Object.assign(item, { val }));
+
+    return Rx.Observable.fromPromise(promise);
+  })
+  .subscribe(item => {
+    topstoriesList.set(item.key, item.value);
+  });
+
 Rx.Observable.fromEvent(newstoriesRef, 'value')
   .map(snap => snap.val())
   .switchMap(ids => fetchAll(ids))
@@ -47,11 +62,7 @@ Rx.Observable.fromEvent(newstoriesRef, 'value')
 
 export async function topstories(limit) {
   if (limit <= storeLimit) {
-    return topstoriesList
-      .filter(isStory)
-      .filter(hasUrl)
-      .take(limit)
-      .toArray();
+    return topstoriesList.filter(storyFilter).take(limit).toArray();
   }
 
   const storyKeys = await keysAsync('topstories', limit);
@@ -61,11 +72,7 @@ export async function topstories(limit) {
 
 export async function newstories(limit) {
   if (limit <= storeLimit) {
-    return newstoriesList
-      .filter(isStory)
-      .filter(hasUrl)
-      .take(limit)
-      .toArray();
+    return newstoriesList.filter(storyFilter).take(limit).toArray();
   }
 
   const storyKeys = await keysAsync('newstories', limit);
