@@ -19,7 +19,7 @@ module.exports = {
     loaders: [
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style','css?modules'),
+        loader: ExtractTextPlugin.extract('style','css?modules!sass'),
       },
       {
         test: /\.jsx*$/,
