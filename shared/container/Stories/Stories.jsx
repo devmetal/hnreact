@@ -10,6 +10,7 @@ class Stories extends Component {
     super(props, context);
     this.showMore = this.showMore.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.openItem = this.openItem.bind(this);
   }
 
   componentDidMount() {
@@ -28,21 +29,30 @@ class Stories extends Component {
     e.preventDefault();
     this.props.dispatch(Actions.fetchStories());
   }
+  
+  openItem(post) {
+    const win = window.open(post.url, '_blank');
+    win.focus();
+  }
 
   render() {
     return (
-      <div className="collection with-header">
-        <div className="collection-header">
-          <span>Stories</span>
-          <Refresh show={!this.props.isFetching} onClick={this.refresh} />
-        </div>
-        {this.props.stories.map((post) => (
-          <HackerItem
-            post={post}
-            key={post.id}
-          />
-        ))}
-        <ShowMore show={!this.props.isFetching} onClick={this.showMore} />
+      <div className="container">
+        <ul className="collection with-header">
+          <li className="collection-header">
+            <div className="title">Stories
+            <Refresh show={!this.props.isFetching} onClick={this.refresh} />
+            </div>
+          </li>
+          {this.props.stories.map((post) => (
+            <HackerItem
+              post={post}
+              key={post.id}
+              clickHandler={this.openItem.bind(this, post)}
+            />
+          ))}
+          <ShowMore show={!this.props.isFetching} onClick={this.showMore} />
+        </ul>
       </div>
     );
   }

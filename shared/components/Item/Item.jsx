@@ -4,15 +4,19 @@ function Item(props) {
   const cls = 'collection-item';
 
   return (
-    <a className={cls} target="_blank" href={props.post.url}>
-      {props.post.title}
-      <span className="badge">{props.post.score}</span>
-    </a>
+    <li className={cls} onClick={props.clickHandler}>
+      <span className="title">{props.post.title}</span>
+      <p>
+        <span>Score: {props.post.score}</span>
+        <span>By: {props.post.by}</span>
+      </p>
+    </li>
   );
 }
 
 Item.propTypes = {
   post: PropTypes.object.isRequired,
+  clickHandler: PropTypes.func.isRequired
 };
 
 export default Item;

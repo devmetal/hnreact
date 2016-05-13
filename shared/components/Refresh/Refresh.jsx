@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 function Refresh(props) {
-  const cls = `btn-floating waves-effect waves-light right ${props.show ? '' : 'disabled'}`;
+  const cls = `secondary-content btn-floating waves-effect waves-light right ${props.show ? '' : 'disabled'}`;
   return (
     <a className={cls} onClick={props.onClick}>
       <i className="material-icons">update</i>
