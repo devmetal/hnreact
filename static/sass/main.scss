@@ -7,3 +7,31 @@ body {
 .hidden {
   display: none !important;
 }
+
+.collection {
+  
+  .collection-header {
+    .title {
+      line-height: 37px;
+    }
+  }
+  
+  .collection-item {
+    transition: all .25s;
+    cursor: pointer;
+    color: #26a69a;
+    &:hover {
+      background-color: #ddd;
+    }
+    
+    p {
+      font-size: 80%;
+      margin:0;
+      padding:0;
+      
+      span {
+        padding-right: 10px;
+      }
+    }
+  }
+}

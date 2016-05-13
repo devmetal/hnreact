@@ -55,7 +55,7 @@ const renderFullPage = (html, initialState) => {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
       </head>
       <body>
-        <div id="root" class="container">${html}</div>
+        <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
         </script>
