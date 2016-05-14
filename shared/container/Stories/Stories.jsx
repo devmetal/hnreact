@@ -48,7 +48,7 @@ class Stories extends Component {
             <HackerItem
               post={post}
               key={post.id}
-              clickHandler={this.openItem.bind(this, post)}
+              clickHandler={this.openItem}
             />
           ))}
           <ShowMore show={!this.props.isFetching} onClick={this.showMore} />
@@ -63,8 +63,6 @@ Stories.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isFetching: PropTypes.bool,
 };
-
-Stories.need = [() => { return Actions.fetchStories(); }];
 
 function mapStateToProps(store) {
   return {

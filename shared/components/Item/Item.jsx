@@ -1,22 +1,33 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 
-function Item(props) {
-  const cls = 'collection-item';
+class Item extends Component {
+  constructor(context, props) {
+    super(context, props);
+    this.onClick = this.onClick.bind(this);
+  }
 
-  return (
-    <li className={cls} onClick={props.clickHandler}>
-      <span className="title">{props.post.title}</span>
-      <p>
-        <span>Score: {props.post.score}</span>
-        <span>By: {props.post.by}</span>
-      </p>
-    </li>
-  );
+  onClick() {
+    return this.props.clickHandler(this.props.post);
+  }
+
+  render() {
+    const cls = 'collection-item';
+
+    return (
+      <li className={cls} onClick={this.onClick}>
+        <span className="title">{this.props.post.title}</span>
+        <p>
+          <span>Score: {this.props.post.score}</span>
+          <span>By: {this.props.post.by}</span>
+        </p>
+      </li>
+    );
+  }
 }
 
 Item.propTypes = {
   post: PropTypes.object.isRequired,
-  clickHandler: PropTypes.func.isRequired
+  clickHandler: PropTypes.func.isRequired,
 };
 
 export default Item;
