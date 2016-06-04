@@ -17,7 +17,7 @@ body {
   }
   
   .collection-item {
-    transition: all .25s;
+    transition: background-color .25s;
     cursor: pointer;
     color: #26a69a;
     &:hover {
