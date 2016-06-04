@@ -50,7 +50,7 @@ Rx.Observable.fromEvent(topstoriesRef, 'child_changed')
     return Rx.Observable.fromPromise(promise);
   })
   .subscribe(item => {
-    topstoriesList.set(item.key, item.value);
+    topstoriesList = topstoriesList.set(item.key, item.value);
   });
 
 Rx.Observable.fromEvent(newstoriesRef, 'value')
