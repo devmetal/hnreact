@@ -4,7 +4,7 @@ function Refresh(props) {
   const cls = `secondary-content btn-floating waves-effect waves-light right ${props.show ? '' : 'disabled'}`;
   return (
     <a className={cls} onClick={props.onClick}>
-      <i className="material-icons">update</i>
+      <i className="material-icons">cached</i>
     </a>
   );
 }
