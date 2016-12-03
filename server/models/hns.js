@@ -53,13 +53,6 @@ Rx.Observable.fromEvent(topstoriesRef, 'child_changed')
     topstoriesList = topstoriesList.set(item.key, item.value);
   });
 
-Rx.Observable.fromEvent(newstoriesRef, 'value')
-  .map(snap => snap.val())
-  .switchMap(ids => fetchAll(ids))
-  .subscribe(items => {
-    newstoriesList = new Immutable.List(items);
-  });
-
 export async function topstories(limit) {
   if (limit <= storeLimit) {
     return topstoriesList.filter(storyFilter).take(limit).toArray();
