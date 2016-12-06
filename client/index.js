@@ -40,8 +40,8 @@ if (process.env.CLIENT && !window.devToolsExtension) {
   );
 }
 
-window.onload = () => { 
-  [...document.querySelectorAll('.hide-until-loaded')].forEach((elem) => { 
-    elem.classList.remove('hide-until-loaded'); 
-  }); 
-}; 
+window.onload = () => {
+  [...document.querySelectorAll('.hide-until-loaded')].forEach((elem) => {
+    elem.classList.remove('hide-until-loaded');
+  });
+};
