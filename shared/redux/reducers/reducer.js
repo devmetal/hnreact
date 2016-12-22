@@ -7,14 +7,14 @@ const initialState = {
   error: '',
 };
 
-const favorites = (favorites, action) => {
-  switch(action.type) {
+const favorites = (favs, action) => {
+  switch (action.type) {
     case ActionTypes.FAVORITE:
-      return [...favorites, action.post];
+      return [...favs, action.post];
     case ActionTypes.UN_FAVORITE:
-      return favorites.filter(f => f.id !== action.id);
-    default: 
-      return favorites;
+      return favs.filter(f => f.id !== action.id);
+    default:
+      return favs;
   }
 };
 
