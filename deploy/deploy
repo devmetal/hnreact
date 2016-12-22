@@ -6,6 +6,6 @@ ssh -t -t app@metaladam.net <<EOF
   npm cache clean
   npm install
   npm run build
-  forever restartall
+  pm2 restart hnreader
   exit
 EOF

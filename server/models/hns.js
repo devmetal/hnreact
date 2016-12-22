@@ -11,10 +11,8 @@ const storyFilter = (x) => hasUrl(x) && isStory(x);
 const storeLimit = 200;
 
 let topstoriesList = new Immutable.List();
-let newstoriesList = new Immutable.List();
 
 const topstoriesRef = ref.child('topstories').limitToFirst(storeLimit);
-const newstoriesRef = ref.child('newstories').limitToFirst(storeLimit);
 const itemRef = ref.child('item');
 
 const retreiveAsync = id => new Promise(resolve => {
@@ -63,12 +61,5 @@ export async function topstories(limit) {
   return stories.filter(s => isStory(s) && hasUrl(s));
 }
 
-export async function newstories(limit) {
-  if (limit <= storeLimit) {
-    return newstoriesList.filter(storyFilter).take(limit).toArray();
-  }
-
-  const storyKeys = await keysAsync('newstories', limit);
-  const stories = await Promise.all(storyKeys.map(retreiveAsync));
-  return stories.filter(s => isStory(s) && hasUrl(s));
+export async function newstories() {
 }
