@@ -4,6 +4,10 @@ body {
   background-color: $background-color;
 }
 
+.brand-logo {
+  font-size: 2rem !important;
+}
+
 .hidden {
   display: none !important;
 }
@@ -19,7 +23,7 @@ body {
   .collection-item {
     transition: background-color .25s;
     cursor: pointer;
-    color: #26a69a;
+    color:darken(#26a69a, 15%);
     &:hover {
       background-color: #ddd;
     }
@@ -40,7 +44,7 @@ body {
 
     &.favorite {
       .material-icons {
-        color: green;
+        color: #26a69a;
       }
     }
 
@@ -49,7 +53,7 @@ body {
     }
 
     &::after {
-      clear: right;
+      clear: both;
       content: '';
       display: block;
     }
