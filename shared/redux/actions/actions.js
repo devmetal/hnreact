@@ -86,7 +86,7 @@ export function favorite(post) {
     }
     localStorage.setItem('favorites', posts);
     dispatch({ type: ActionTypes.FAVORITE, post });
-  }
+  };
 }
 
 export function unFavorite(id) {
@@ -96,7 +96,7 @@ export function unFavorite(id) {
       favorites.filter(f => f.id !== id)
     ));
     dispatch({ type: ActionTypes.UN_FAVORITE, id });
-  }
+  };
 }
 
 export function addFavorites() {
