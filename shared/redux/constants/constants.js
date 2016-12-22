@@ -5,3 +5,6 @@ export const INCRASE_LIMIT = 'INCRASE_LIMIT';
 export const DECRASE_LIMIT = 'DECRARE_LIMIT';
 export const VISIT_LINK = 'VISIT_LINK';
 export const ADD_VISITED = 'ADD_VISITED';
+export const FAVORITE = 'FAVORITE';
+export const UN_FAVORITE = 'UN_FAVORITE';
+export const ADD_FAVORITES = 'ADD_FAVORITES';

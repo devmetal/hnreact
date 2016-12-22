@@ -7,6 +7,17 @@ const initialState = {
   error: '',
 };
 
+const favorites = (favorites, action) => {
+  switch(action.type) {
+    case ActionTypes.FAVORITE:
+      return [...favorites, action.post];
+    case ActionTypes.UN_FAVORITE:
+      return favorites.filter(f => f.id !== action.id);
+    default: 
+      return favorites;
+  }
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.INCRASE_LIMIT: return {
@@ -34,6 +45,15 @@ const reducer = (state = initialState, action) => {
     case ActionTypes.VISIT_LINK: return {
       ...state,
       visited: [...state.visited, action.id],
+    };
+    case ActionTypes.ADD_FAVORITES: return {
+      ...state,
+      favorites: action.posts,
+    };
+    case ActionTypes.FAVORITE:
+    case ActionTypes.UN_FAVORITE: return {
+      ...state,
+      favorites: favorites(state.favorites, action),
     };
     default:
       return state;

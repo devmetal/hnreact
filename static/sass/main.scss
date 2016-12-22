@@ -34,8 +34,24 @@ body {
       }
     }
 
+    .material-icons {
+      color: grey;
+    }
+
+    &.favorite {
+      .material-icons {
+        color: green;
+      }
+    }
+
     &.visited {
       color: grey;
+    }
+
+    &::after {
+      clear: right;
+      content: '';
+      display: block;
     }
   }
 }
