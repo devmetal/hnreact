@@ -110,6 +110,7 @@ app.use((req, res, next) => {
       limit: 50,
       error: '',
       visited: [],
+      favorites: [],
     };
 
     const store = configureStore(initialState);

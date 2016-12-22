@@ -74,3 +74,36 @@ export function addVisited() {
   }
   return { type: ActionTypes.ADD_VISITED, ids: JSON.parse(ids) };
 }
+
+export function favorite(post) {
+  return (dispatch, getState) => {
+    const { favorites } = getState();
+    let posts;
+    if (!favorites) {
+      posts = JSON.stringify([post]);
+    } else {
+      posts = JSON.stringify([...favorites, post]);
+    }
+    localStorage.setItem('favorites', posts);
+    dispatch({ type: ActionTypes.FAVORITE, post });
+  }
+}
+
+export function unFavorite(id) {
+  return (dispatch, getState) => {
+    const { favorites } = getState();
+    localStorage.setItem('favorites', JSON.stringify(
+      favorites.filter(f => f.id !== id)
+    ));
+    dispatch({ type: ActionTypes.UN_FAVORITE, id });
+  }
+}
+
+export function addFavorites() {
+  const posts = localStorage.getItem('favorites');
+  if (!posts) {
+    return { type: ActionTypes.ADD_FAVORITES, posts: [] };
+  }
+
+  return { type: ActionTypes.ADD_FAVORITES, posts: JSON.parse(posts) };
+}

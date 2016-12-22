@@ -12,6 +12,7 @@ class Stories extends Component {
     this.showMore = this.showMore.bind(this);
     this.refresh = this.refresh.bind(this);
     this.openItem = this.openItem.bind(this);
+    this.favorite = this.favorite.bind(this);
   }
 
   componentDidMount() {
@@ -20,6 +21,7 @@ class Stories extends Component {
     }
 
     this.props.dispatch(Actions.addVisited());
+    this.props.dispatch(Actions.addFavorites());
   }
 
   showMore(e) {
@@ -32,14 +34,31 @@ class Stories extends Component {
     e.preventDefault();
     this.props.dispatch(Actions.fetchStories());
   }
-  
+
   openItem(post) {
     this.props.dispatch(Actions.visitLink(post.id));
     const win = window.open(post.url, '_blank');
     win.focus();
   }
 
+  favorite(post) {
+    if (post.favorite === true) {
+      this.props.dispatch(Actions.unFavorite(post.id));
+    } else {
+      this.props.dispatch(Actions.favorite(post));
+    }
+  }
+
   render() {
+    const storiesList = this.props.stories.map((post) => (
+      <HackerItem
+        post={post}
+        key={post.id}
+        clickHandler={this.openItem}
+        favoriteHandler={this.favorite}
+        />
+    ));
+
     return (
       <div className="container">
         <ul className="collection with-header">
@@ -48,13 +67,7 @@ class Stories extends Component {
             <Refresh show={!this.props.isFetching} onClick={this.refresh} />
             </div>
           </li>
-          {this.props.stories.map((post) => (
-            <HackerItem
-              post={post}
-              key={post.id}
-              clickHandler={this.openItem}
-            />
-          ))}
+          {storiesList}
           <ShowMore show={!this.props.isFetching} onClick={this.showMore} />
         </ul>
       </div>
@@ -70,16 +83,17 @@ Stories.propTypes = {
 
 const stories = store => store.stories;
 const visited = store => store.visited;
+const favorites = store => store.favorites.map(f => f.id);
 
 const storiesSelector = createSelector(
-  [stories, visited],
-  (stories, visited) => {
+  [stories, visited, favorites],
+  (stories, visited, favorites) => {
     return stories.map((story) => {
-      if (visited.includes(story.id)) {
-        return {...story, visited: true};
-      } else {
-        return story;
-      }
+      return {
+        ...story,
+        visited: visited.includes(story.id),
+        favorite: favorites.includes(story.id),
+      };
     });
   }
 )
