@@ -27,6 +27,14 @@ const reducer = (state = initialState, action) => {
       isFetching: action.isFetching,
       error: action.error,
     };
+    case ActionTypes.ADD_VISITED: return {
+      ...state,
+      visited: action.ids,
+    };
+    case ActionTypes.VISIT_LINK: return {
+      ...state,
+      visited: [...state.visited, action.id],
+    };
     default:
       return state;
   }

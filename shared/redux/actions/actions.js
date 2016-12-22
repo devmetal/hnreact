@@ -52,3 +52,25 @@ export function fetchStories() {
     });
   };
 }
+
+export function visitLink(id) {
+  return (dispatch, getState) => {
+    const { visited } = getState();
+    let ids;
+    if (!visited) {
+      ids = JSON.stringify([id]);
+    } else {
+      ids = JSON.stringify([...visited, id]);
+    }
+    localStorage.setItem('visited', ids);
+    dispatch({ type: ActionTypes.VISIT_LINK, id });
+  };
+}
+
+export function addVisited() {
+  const ids = localStorage.getItem('visited');
+  if (!ids) {
+    return { type: ActionTypes.ADD_VISITED, ids: [] };
+  }
+  return { type: ActionTypes.ADD_VISITED, ids: JSON.parse(ids) };
+}

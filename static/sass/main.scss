@@ -33,5 +33,9 @@ body {
         padding-right: 10px;
       }
     }
+
+    &.visited {
+      color: grey;
+    }
   }
 }

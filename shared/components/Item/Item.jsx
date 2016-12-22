@@ -11,7 +11,11 @@ class Item extends Component {
   }
 
   render() {
-    const cls = 'collection-item';
+    let cls = 'collection-item';
+
+    if (this.props.post.visited === true) {
+      cls += ' visited';
+    }
 
     return (
       <li className={cls} onClick={this.onClick}>
