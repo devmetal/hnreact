@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Stories from '../Stories/Stories';
-import Navbar from '../Navbar/Navbar';
 import * as Actions from '../../redux/actions/actions.js';
 
 class Reader extends Component {
@@ -12,7 +11,6 @@ class Reader extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <Stories />
       </div>
     );
