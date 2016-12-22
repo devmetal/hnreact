@@ -4,6 +4,7 @@ import * as Actions from '../../redux/actions/actions';
 import HackerItem from '../../components/Item/Item';
 import ShowMore from '../../components/ShowMore/ShowMore';
 import Refresh from '../../components/Refresh/Refresh';
+import { createSelector } from 'reselect';
 
 class Stories extends Component {
   constructor(props, context) {
@@ -17,6 +18,8 @@ class Stories extends Component {
     if (!this.props.stories.length) {
       this.props.dispatch(Actions.fetchStories());
     }
+
+    this.props.dispatch(Actions.addVisited());
   }
 
   showMore(e) {
@@ -31,6 +34,7 @@ class Stories extends Component {
   }
   
   openItem(post) {
+    this.props.dispatch(Actions.visitLink(post.id));
     const win = window.open(post.url, '_blank');
     win.focus();
   }
@@ -64,9 +68,25 @@ Stories.propTypes = {
   isFetching: PropTypes.bool,
 };
 
+const stories = store => store.stories;
+const visited = store => store.visited;
+
+const storiesSelector = createSelector(
+  [stories, visited],
+  (stories, visited) => {
+    return stories.map((story) => {
+      if (visited.includes(story.id)) {
+        return {...story, visited: true};
+      } else {
+        return story;
+      }
+    });
+  }
+)
+
 function mapStateToProps(store) {
   return {
-    stories: store.stories,
+    stories: storiesSelector(store),
     isFetching: store.isFetching,
   };
 }
