@@ -109,6 +109,7 @@ app.use((req, res, next) => {
       isFetching: false,
       limit: 50,
       error: '',
+      visited: [],
     };
 
     const store = configureStore(initialState);
